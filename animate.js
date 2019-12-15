@@ -43,51 +43,50 @@ var left = document.getElementById("left");
 var right = document.getElementById("right");
 var navList = document.getElementById("nav").children;
 var index = 1;
+var isMoving = false;
 function before(){
-	navList[index - 1].removeAttribute("class"); 
-	index--;
-	if(index === 6){
-		var x = 1;
-	}else if(index === 0){
-		var x = 5;
-	}else{
-		var x = index;
-	}
-	navList[x - 1].setAttribute("class","active");
-	animate(slider,{left:-1200*index},function(){
-        if(index === 6){
-            slider.style.left = "-1200px";
-            index = 1;
-        }
-        if(index === 0){
-			slider.style.left = "-6000px";
-			index = 5;
+	if(!isMoving){
+		isMoving = true;
+		navList[index - 1].removeAttribute("class"); 
+		index--;
+		if(index === 6){
+			var x = 1;
+		}else if(index === 0){
+			var x = 5;
+		}else{
+			var x = index;
 		}
-		
-    });
+		navList[x - 1].setAttribute("class","active");
+		animate(slider,{left:-1200*index},function(){
+			if(index === 0){
+				slider.style.left = "-6000px";
+				index = 5;
+			}
+			isMoving = false;
+		});
+	}
 }
 function next(){
-	navList[index - 1].removeAttribute("class"); 
-	index++;
-	if(index === 6){
-		var x = 1;
-	}else if(index === 0){
-		var x = 5;
-	}else{
-		var x = index;
-	}
-	navList[x - 1].setAttribute("class","active");
-    animate(slider,{left:-1200*index},function(){
-        if(index === 6){
-            slider.style.left = "-1200px";
-            index = 1;
-        }
-        if(index === 0){
-			slider.style.left = "-6000px";
-			index = 5;
+	if(!isMoving){
+		isMoving = true;
+		navList[index - 1].removeAttribute("class"); 
+		index++;
+		if(index === 6){
+			var x = 1;
+		}else if(index === 0){
+			var x = 5;
+		}else{
+			var x = index;
 		}
-		
-    });
+		navList[x - 1].setAttribute("class","active");
+		animate(slider,{left:-1200*index},function(){
+			if(index === 6){
+				slider.style.left = "-1200px";
+				index = 1;
+			}
+			isMoving = false;
+		});
+	}
 }
 var timer = setInterval(next, 3000);
 box.onmouseover = function(){
